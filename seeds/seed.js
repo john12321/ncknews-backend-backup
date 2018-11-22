@@ -3,7 +3,7 @@ const {
   topicData,
   articleData,
   commentData
-} = require('../db/data/test-data/');
+} = require('../db/data/index');
 
 const {
   createRef,
@@ -23,7 +23,7 @@ exports.seed = function (knex, Promise) {
       const userRef = createRef(userData, 'username', 'user_id');
       //push userRef to global array
       globArr.push(userRef)
-      // console.log(userRef)
+      // console.log(userRef)user
       const formattedArticleData = formatAData(articleData, userRef);
       return knex('article').insert(formattedArticleData).returning('*');
 

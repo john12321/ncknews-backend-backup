@@ -4,11 +4,12 @@
   "description": "## Northcoders News API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha spec",
     "lint": "eslint ./",
     "pre-commit": "npm t",
     "posttest": "npm run lint",
-    "migrate:make": "knex migrate:make"
+    "migrate:make": "knex migrate:make",
+    "dev": "node listen.js"
   },
   "repository": {
     "type": "git",
@@ -22,11 +23,21 @@
   },
   "homepage": "https://github.com/northcoders/BE2-NC-Knews#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "express": "^4.16.4",
     "knex": "^0.15.2",
     "pg": "^7.6.1"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
     "eslint": "^5.9.0",
-    "husky": "^1.1.4"
+    "husky": "^1.1.4",
+    "mocha": "^5.2.0",
+    "supertest": "^3.3.0"
   }
 }
