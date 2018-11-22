@@ -1,4 +1,4 @@
-exports.handle404 = (err, req, res, next) => {
+exports.handle404s = (err, req, res, next) => {
   if (err.msg === 'no data for this endpoint...') res.status(404).send({
     msg: err.msg
   });
@@ -9,7 +9,7 @@ exports.handle404 = (err, req, res, next) => {
 }
 
 
-exports.handle500 = (err, req, res, next) => {
+exports.handle500s = (err, req, res, next) => {
   res.status(500).send({
     msg: 'Internal server error'
   });

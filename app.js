@@ -4,8 +4,8 @@ const {
   apiRouter
 } = require('./routers/api_router');
 const {
-  handle404,
-  handle500,
+  handle404s,
+  handle500s,
 } = require('./errors');
 
 app.use(bodyParser.json());
@@ -18,8 +18,8 @@ app.use('/*', (req, res, next) => next({
 }));
 
 
-app.use(handle404);
-app.use(handle500);
+app.use(handle404s);
+app.use(handle500s);
 
 
 module.exports = app;
