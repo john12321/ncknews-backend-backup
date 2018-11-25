@@ -9,7 +9,8 @@
     "pre-commit": "npm t",
     "posttest": "npm run lint",
     "migrate:make": "knex migrate:make",
-    "dev": "node listen.js"
+    "dev": "node listen.js",
+    "lint:fix": "eslint --fix ./"
   },
   "repository": {
     "type": "git",
