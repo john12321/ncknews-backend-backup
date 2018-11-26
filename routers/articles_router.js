@@ -10,12 +10,13 @@ const {
   handle405s,
 } = require('../errors');
 
-articlesRouter.param('article_id', (req, res, next) => {
-  if (!/^\d+$/.test(req.params.article_id)) {
+articlesRouter.param('article_id', (req, res, next, article_id) => {
+  if (!/^\d+$/.test(article_id)) {
     next({
       code: '22P02',
     });
-  } else next();
+  } else
+    next();
 });
 
 articlesRouter

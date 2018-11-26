@@ -4,13 +4,17 @@
   "description": "## Northcoders News API",
   "main": "index.js",
   "scripts": {
+    "start": "node listen.js",
     "test": "mocha spec",
     "lint": "eslint ./",
     "pre-commit": "npm t",
     "posttest": "npm run lint",
     "migrate:make": "knex migrate:make",
     "dev": "node listen.js",
-    "lint:fix": "eslint --fix ./"
+    "lint:fix": "eslint --fix ./",
+    "seed:prod": "DB_URL=$(heroku config:get DATABASE_URL) knex seed:run --env production",
+    "migrate:latest:prod": "DB_URL=$(heroku config:get DATABASE_URL) knex migrate:latest --env production",
+    "migrate:rollback:prod": "DB_URL=$(heroku config:get DATABASE_URL) knex migrate:rollback --env production"
   },
   "repository": {
     "type": "git",

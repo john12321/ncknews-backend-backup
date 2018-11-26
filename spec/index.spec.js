@@ -194,7 +194,7 @@ describe('/', () => {
       // GET returns all articles with correct keys
 
       // GET returns a 400 bad request for malformed non-int limit/p queries
-      // it('GET returns a 400 bad request for malformed non-int limit/p queries', () => request.get('/api/topics/mitch/articles?limit=madeup')
+      // it.only('GET returns a 400 bad request for malformed non-int limit/p queries', () => request.get('/api/topics/mitch/articles?limit=madeup')
       //   .expect(400)
       //   .then(({
       //     body,
@@ -263,7 +263,7 @@ describe('/', () => {
             articles,
           },
         }) => {
-          expect(articles).to.be.an('Array');
+          expect(articles).to.be.an('array');
           expect(articles.length).to.equal(10);
           expect(articles[2]).to.have.all.keys(['author', 'title', 'article_id', 'votes', 'comment_count', 'created_at', 'topic']);
         }));
@@ -290,10 +290,26 @@ describe('/', () => {
     });
 
     describe('/articles/:article_id', () => {
+      const urlC = '/api/articles/1'
       // GET responds with a 200 and a single article
       // GET responds with a 404 when given a non-existent article_id
       // GET responds with a 400 when given an invalid article_id
+
       // PATCH responds with a 200 and an updated article when given a body including a valid "inc_votes" (VOTE UP)
+      // it('PATCH responds with a 200 and an updated article when given a body including a valid "inc_votes" (VOTE UP)', () =>
+      //   request
+      //   .patch(urlC)
+      //   .send({
+      //     inc_votes: 1000
+      //   })
+      //   .expect(202)
+      //   .then((
+      //       res
+      //     ) =>
+      //     expect(res.body.article.votes).to.equal(1000)
+      //   )
+      // );
+
       // PATCH responds with a 200 and an updated article when given a body including a valid "inc_votes" (VOTE DOWN)
       // PATCH responds with a 400 if given an invalid inc_votes
       // PATCH with no body responds with an unmodified article

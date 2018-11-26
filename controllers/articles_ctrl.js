@@ -69,27 +69,40 @@ exports.getArticle = (req, res, next) => {
 exports.updateArticle = (req, res, next) => {
   const {
     inc_votes,
-  } = req.body;
-  const voteDirection = inc_votes < 0 ? '.decrement' : '.increment';
+  } = req;
+  if (inc_votes && typeof inc_votes !== 'number') {
+    next({
+      code: '22P02'
+    })
+  }
+
   if (typeof inc_votes === 'string') {
     next({
       code: 42703,
     });
   }
-  const votesNum = Number(inc_votes);
-  db('article')[voteDirection]('votes', votesNum)
-    .where('article_id', '=', req.params.article_id)
+
+  return db('article')
+    .select()
+    .where('article.article_id', req.params.article_id)
+    .increment('votes', inc_votes)
     .returning('*')
-    .then((article) => {
+    .then((
+      article
+    ) => {
       if (article.length === 0) {
         next({
           code: 'No article',
         });
+      } else {
+        return res.status(202).send({
+          article: article[0]
+        });
       }
-      res.status(202).send(article[0]);
     })
     .catch(next);
 };
+
 
 
 exports.deleteArticle = (req, res, next) => {
