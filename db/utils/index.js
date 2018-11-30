@@ -1,44 +1,44 @@
-exports.createRef = (rows, columnName, idName) => rows.reduce((refObj, row) => {
-  const rowValue = row[columnName];
-  const primaryKey = row[idName];
-  refObj[rowValue] = primaryKey;
-  // console.log(refObj)
+const formattedDate = time => new Date(time);
+
+exports.createRef = (rows, columnName_articles, idName_user) => rows.reduce((refObj, row) => {
+  const primaryKey = row[columnName_articles];
+  const rowVal = primaryKey;
+  refObj[rowVal] = row[idName_user];
   return refObj;
 }, {});
 
-exports.formatAData = (aData, uRef) => aData.map((aDatum) => {
+exports.formatArticle = (articleData, userRef) => articleData.map((articleDatum) => {
   const {
     title,
     topic,
     created_by,
     body,
     created_at,
-  } = aDatum;
-  const formattedDate = new Date(created_at);
+    votes,
+  } = articleDatum;
   return {
     title,
-    topic,
-    user_id: uRef[created_by],
     body,
-    created_at: formattedDate,
+    topic,
+    votes,
+    user_id: userRef[created_by],
+    created_at: formattedDate(created_at),
   };
 });
 
-
-exports.formatComData = (comData, userRef, artRef) => comData.map((comDatum) => {
+exports.formatComments = (commentData, userRef, articleRef) => commentData.map((commentDatum) => {
   const {
     body,
     belongs_to,
     created_by,
     votes,
     created_at,
-  } = comDatum;
-  const formattedDate = new Date(created_at);
+  } = commentDatum;
   return {
     user_id: userRef[created_by],
-    article_id: artRef[belongs_to],
-    body,
+    article_id: articleRef[belongs_to],
     votes,
-    created_at: formattedDate,
+    created_at: formattedDate(created_at),
+    body,
   };
 });

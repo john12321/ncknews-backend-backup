@@ -10,8 +10,10 @@
     "pre-commit": "npm t",
     "posttest": "npm run lint",
     "migrate:make": "knex migrate:make",
-    "dev": "node listen.js",
+    "dev": "nodemon listen.js",
     "lint:fix": "eslint --fix ./",
+    "create-db": "psql -f db/setup.sql",
+    "reset": "knex migrate:rollback && knex migrate:latest && knex seed:run ./seeds/seed.js",
     "seed:prod": "DB_URL=$(heroku config:get DATABASE_URL) knex seed:run --env production",
     "migrate:latest:prod": "DB_URL=$(heroku config:get DATABASE_URL) knex migrate:latest --env production",
     "migrate:rollback:prod": "DB_URL=$(heroku config:get DATABASE_URL) knex migrate:rollback --env production"
@@ -29,11 +31,6 @@
   "homepage": "https://github.com/northcoders/BE2-NC-Knews#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-react": "^7.11.1",
     "express": "^4.16.4",
     "knex": "^0.15.2",
     "pg": "^7.6.1"
@@ -41,8 +38,11 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "eslint": "^5.9.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
     "husky": "^1.1.4",
     "mocha": "^5.2.0",
+    "nodemon": "^1.18.7",
     "supertest": "^3.3.0"
   }
 }
