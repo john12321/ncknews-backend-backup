@@ -124,7 +124,7 @@ The tests thoroughly (I hope!) test all of the server endpoints (see API Endpoin
 
 - [Heroku](https://www.heroku.com/)
 
-`******put heroku URL here*****`
+[https://ncknews.herokuapp.com/](https://ncknews.herokuapp.com/)
 
 ## Author
 
