@@ -4,7 +4,7 @@ exports.getAllArticles = (req, res, next) => {
   const {
     limit,
     sort_by,
-    sort_ascending = 'false',
+    sort_ascending = false,
     p = 1,
   } = req.query;
   return db('articles')
@@ -36,7 +36,7 @@ exports.getArticleById = (req, res, next) => {
     article_id,
   } = req.params;
   return db('articles')
-    .select('articles.article_id', 'title', 'articles.votes', 'articles.created_at', 'topic', 'users.username as author')
+    .select('articles.article_id', 'title', 'body', 'articles.votes', 'articles.created_at', 'topic', 'users.username as author')
     .where('articles.article_id', article_id)
     .join('users', 'articles.user_id', 'users.user_id')
     .leftJoin('comments', 'articles.article_id', 'comments.article_id')
@@ -62,7 +62,7 @@ exports.updateVotesById = (req, res, next) => {
     article_id,
   } = req.params;
   const {
-    inc_votes,
+    inc_votes = 0,
   } = req.body;
   return db('articles')
     .where('articles.article_id', article_id)
@@ -111,7 +111,7 @@ exports.getCommentsByArticleId = (req, res, next) => {
     limit,
     sort_by,
     sort_ascending,
-    p,
+    p = 1,
   } = req.query;
   return db('comments')
     .select('comments.comment_id', 'comments.votes', 'comments.created_at', 'comments.body', 'users.username as author')
@@ -122,8 +122,8 @@ exports.getCommentsByArticleId = (req, res, next) => {
     .groupBy('comments.comment_id')
     .where('articles.article_id', article_id)
     .limit(limit || 10)
-    .orderBy(sort_by || 'created_at', sort_ascending ? 'asc' : 'desc')
-    .offset(p || 0)
+    .orderBy(sort_by || 'created_at', sort_ascending ? 'asc' : 'desc') 
+    .offset((p - 1) * limit)
     .then((comments) => {
       if (comments.length === 0) {
         return next({
