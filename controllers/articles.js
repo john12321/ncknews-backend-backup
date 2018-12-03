@@ -36,7 +36,7 @@ exports.getArticleById = (req, res, next) => {
     article_id,
   } = req.params;
   return db('articles')
-    .select('articles.article_id', 'title', 'articles.votes', 'articles.created_at', 'topic', 'users.username as author')
+    .select('articles.article_id', 'title', 'articles.votes', 'articles.body', 'articles.created_at', 'topic', 'users.username as author')
     .where('articles.article_id', article_id)
     .join('users', 'articles.user_id', 'users.user_id')
     .leftJoin('comments', 'articles.article_id', 'comments.article_id')

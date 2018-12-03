@@ -93,13 +93,14 @@ describe('/api/articles', () => {
       },
     }) => {
       // console.log(article)
-      expect(Object.keys(article).length).to.equal(7);
+      expect(Object.keys(article).length).to.equal(8);
       expect(article).to.be.an('object');
       expect(article).to.have.all.keys(
         'author',
         'title',
         'article_id',
         'votes',
+        'body',
         'comment_count',
         'created_at',
         'topic',
