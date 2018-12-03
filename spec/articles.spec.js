@@ -22,6 +22,7 @@ describe('/api/articles', () => {
         articles,
       },
     }) => {
+      // console.log(articles)
       expect(articles.length).to.equal(10);
       expect(articles).to.be.an('array');
       expect(articles[0]).to.have.all.keys(
@@ -29,6 +30,7 @@ describe('/api/articles', () => {
         'title',
         'article_id',
         'votes',
+        'body',
         'comment_count',
         'created_at',
         'topic',
@@ -57,7 +59,7 @@ describe('/api/articles', () => {
       },
     }) => {
       expect(articles.length).to.equal(3);
-      expect(articles[0].title).to.equal('Moustache');
+      expect(articles[0].title).to.equal('Living in the shadow of a great man');
     }));
   it('GET returns 200 and an array sorted as required and to a given limit', () => request
     .get('/api/articles?sort_ascending=true&limit=2')
@@ -104,7 +106,7 @@ describe('/api/articles', () => {
       );
     }));
   it('GET returns 400 for an incorrect type of user id', () => request
-    .get('/api/articles/sfsdf')
+    .get('/api/articles/test')
     .expect(400));
   it('GET returns 404 and for a non-existent user id', () => request
     .get('/api/topics/666')
@@ -133,18 +135,11 @@ describe('/api/articles', () => {
       });
   });
   it('PATCH returns 400 and an error message', () => request
-    .patch('/api/articles/sfsdf')
+    .patch('/api/articles/testing')
     .expect(400));
   it('PATCH returns 404 and an error message', () => request
     .patch('/api/articles/999')
     .expect(404));
-  // it.only('DELETE returns 200 and deletes article, returning empty object', () => request
-  //   .delete('/api/articles/1')
-  //   .expect(200)
-  //   .then(() => request
-  //     .get('/api/articles/1')
-  //     .expect(404)));
-
   it('DELETE /:article_id responds with 204 and returns an empty object', () => request.delete('/api/articles/1').expect(204).then(({
     body,
   }) => {
@@ -211,7 +206,7 @@ describe('/api/articles', () => {
   it('GET returns 400 and error message for non numeric user id', () => {
     const limit = 5;
     return request
-      .get(`/api/articles/sfsdf/comments?limit=${limit}`)
+      .get(`/api/articles/test/comments?limit=${limit}`)
       .expect(400);
   });
   it('GET returns 404 and an error message', () => {
