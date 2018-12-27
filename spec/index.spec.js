@@ -41,7 +41,7 @@ describe('/api', () => {
       const methods = [request.put(url), request.patch(url), request.delete(url)];
       return Promise.all(methods.map(object => object.expect(405)));
     });
-    it('GET returns 200 and single user object by id', () => request
+    it.only('GET returns 200 and single user object by username', () => request
       .get('/api/users/butter_bridge')
       .expect(200)
       .then(({
@@ -56,12 +56,13 @@ describe('/api', () => {
           'avatar_url',
           'name',
         );
+        expect(user.name).to.equal('jonny');
       }));
     it('GET returns 404 when non-existent username is used', () => request
       .get('/api/users/jackyboy')
       .expect(404));
     it('all blocked methods respond with a 405', () => {
-      const url = '/api/users/bolo';
+      const url = '/api/users/butter_bridge';
       const methods = [request.put(url), request.patch(url), request.delete(url)];
       return Promise.all(methods.map(object => object.expect(405)));
     });

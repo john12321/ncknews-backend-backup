@@ -1,4 +1,5 @@
 const app = require('express')();
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const {
   apiRoute,
@@ -10,6 +11,8 @@ const {
   handle422s,
   handle500s,
 } = require('./errors');
+
+app.use(cors());
 
 app.use(bodyParser.json());
 
