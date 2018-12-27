@@ -11,7 +11,7 @@ These instructions will get you a copy of the project up and running on your loc
 1. Fork and clone the BE2-NC-Knews repo from my GitHub page.
 
 ```
-https://github.com/john12321/BE2-NC-Knews
+https://github.com/john12321/ncknews-backend-backup
 
 ```
 
