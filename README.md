@@ -102,8 +102,8 @@ The tests thoroughly (I hope!) test all of the server endpoints (see API Endpoin
       users:
         '/api/users/':
           GET: 'fetch all users'
-        '/api/users/:user_id':
-          GET: 'fetch single user by user ID'
+        '/api/users/:username':
+          GET: 'fetch single user by username'
 ```
 
 `NOTE: 'GET/api' gives a list of all the above endpoints`
@@ -124,7 +124,7 @@ The tests thoroughly (I hope!) test all of the server endpoints (see API Endpoin
 
 - [Heroku](https://www.heroku.com/)
 
-[https://ncknews.herokuapp.com/](https://ncknews.herokuapp.com/)
+[https://johns-ncknews.herokuapp.com/](https://johns-ncknews.herokuapp.com/)
 
 ## Author
 

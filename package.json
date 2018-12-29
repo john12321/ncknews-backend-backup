@@ -1,5 +1,5 @@
 {
-  "name": "BE2-NC-Knews",
+  "name": "ncknews-backend-backup",
   "version": "1.0.0",
   "description": "## Northcoders News API",
   "main": "index.js",
@@ -20,15 +20,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/northcoders/BE2-NC-Knews.git"
+    "url": "git+https://github.com/john12321/ncknews-backend-backup.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/northcoders/BE2-NC-Knews/issues"
+    "url": "https://github.com/john12321/ncknews-backend-backup/issues"
   },
-  "homepage": "https://github.com/northcoders/BE2-NC-Knews#readme",
+  "homepage": "https://github.com/john12321/ncknews-backend-backup#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
