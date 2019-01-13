@@ -58,16 +58,21 @@ exports.getArticlesByTopic = (req, res, next) => {
     .catch(next);
 };
 
-exports.postNewTopic = (req, res, next) => db('topics')
-  .insert({
-    slug: req.body.slug,
-    description: req.body.description,
-  })
-  .returning('*')
-  .then(topic => res.status(201).send({
-    topic: topic[0],
-  }))
-  .catch(next);
+exports.postNewTopic = (req, res, next) => {
+  const { slug, description } = req.body;
+  if (slug && description) {
+    db('topics')
+      .returning('*')
+      .insert({ slug: slug.toLowerCase(), description })
+      .into('topics')
+      .then(([topic]) => {
+        res.status(201).json({ topic });
+      })
+      .catch(next);
+  } else {
+    next({ status: 400 });
+  }
+};
 
 exports.postArticleByTopic = (req, res, next) => {
   const {

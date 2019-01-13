@@ -41,7 +41,7 @@ describe('/api', () => {
       const methods = [request.put(url), request.patch(url), request.delete(url)];
       return Promise.all(methods.map(object => object.expect(405)));
     });
-    it.only('GET returns 200 and single user object by username', () => request
+    it('GET returns 200 and single user object by username', () => request
       .get('/api/users/butter_bridge')
       .expect(200)
       .then(({
