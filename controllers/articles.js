@@ -2,7 +2,7 @@ const db = require('../db/connection');
 
 exports.getAllArticles = (req, res, next) => {
   const {
-    limit,
+    limit = 10,
     sort_by,
     sort_ascending = false,
     p = 1,
@@ -108,7 +108,7 @@ exports.getCommentsByArticleId = (req, res, next) => {
     article_id,
   } = req.params;
   const {
-    limit,
+    limit = 10,
     sort_by,
     sort_ascending,
     p = 1,

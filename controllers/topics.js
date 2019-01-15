@@ -16,10 +16,9 @@ exports.getArticlesByTopic = (req, res, next) => {
     topic,
   } = req.params;
 
-  // const validQueries = validateQueries(req.query, 'limit', 'sort_by', 'sort_ascending', 'p');
 
   const {
-    limit,
+    limit = 10,
     sort_by,
     sort_ascending = 'false',
     p = 1,
@@ -43,7 +42,7 @@ exports.getArticlesByTopic = (req, res, next) => {
     .groupBy('users.username')
     .limit(limit || 10)
     .orderBy(sort_by || 'created_at', sort_ascending ? 'asc' : 'desc')
-    .offset(p || 0)
+    .offset((p - 1) * limit)
     .then((articles) => {
       if (articles.length === 0) {
         return next({
