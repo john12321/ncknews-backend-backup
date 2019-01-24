@@ -1,9 +1,18 @@
 exports.up = function (knex, Promise) {
   return knex.schema.createTable('users', (usersTable) => {
-    usersTable.increments('user_id').primary();
-    usersTable.string('username').notNullable();
-    usersTable.string('avatar_url').notNullable();
-    usersTable.string('name').notNullable();
+    usersTable
+      .increments('user_id')
+      .primary()
+      .unsigned();
+    usersTable
+      .string('username')
+      .notNullable();
+    usersTable
+      .string('avatar_url')
+      .notNullable();
+    usersTable
+      .string('name')
+      .notNullable();
   });
 };
 
