@@ -2,7 +2,7 @@ const db = require('../db/connection');
 
 exports.getAllArticles = (req, res, next) => {
   const {
-    limit = 10,
+    limit = 5,
     sort_by,
     sort_ascending = false,
     p = 1,
@@ -14,7 +14,7 @@ exports.getAllArticles = (req, res, next) => {
     .groupBy('articles.article_id')
     .groupBy('users.username')
     .count('comments as comment_count')
-    .limit(limit || 10)
+    .limit(limit || 5)
     .orderBy(sort_by || 'created_at', sort_ascending ? 'asc' : 'desc')
     .offset((p - 1) * limit)
     .then((articles) => {
@@ -108,7 +108,7 @@ exports.getCommentsByArticleId = (req, res, next) => {
     article_id,
   } = req.params;
   const {
-    limit = 10,
+    limit = 5,
     sort_by,
     sort_ascending,
     p = 1,
@@ -121,7 +121,7 @@ exports.getCommentsByArticleId = (req, res, next) => {
     .groupBy('users.username')
     .groupBy('comments.comment_id')
     .where('articles.article_id', article_id)
-    .limit(limit || 10)
+    .limit(limit || 5)
     .orderBy(sort_by || 'created_at', sort_ascending ? 'asc' : 'desc')
     .offset((p - 1) * limit)
     .then((comments) => {

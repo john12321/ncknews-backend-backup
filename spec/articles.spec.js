@@ -8,13 +8,12 @@ const app = require('../app');
 const request = supertest(app);
 const db = require('../db/connection');
 
-// const url = '/api/articles';
 
 describe('/api/articles', () => {
   beforeEach(() => db.migrate.rollback()
     .then(() => db.migrate.latest())
     .then(() => db.seed.run()));
-  it('GET responds with a 200 and an array of 10 articles (default limit)', () => request
+  it('GET responds with a 200 and an array of 5 articles (default limit)', () => request
     .get('/api/articles')
     .expect(200)
     .then(({
@@ -22,8 +21,7 @@ describe('/api/articles', () => {
         articles,
       },
     }) => {
-      // console.log(articles)
-      expect(articles.length).to.equal(10);
+      expect(articles.length).to.equal(5);
       expect(articles).to.be.an('array');
       expect(articles[0]).to.have.all.keys(
         'author',
@@ -82,7 +80,7 @@ describe('/api/articles', () => {
       },
     }) => {
       // console.log(articles)
-      expect(articles.length).to.equal(10);
+      expect(articles.length).to.equal(5);
     }));
   it('GET returns 200 and an article object by id', () => request
     .get('/api/articles/1')
@@ -173,7 +171,7 @@ describe('/api/articles', () => {
       },
     }) => {
       // console.log(body)
-      expect(comments.length).to.equal(10);
+      expect(comments.length).to.equal(5);
       expect(comments).to.be.an('array');
       expect(comments[0]).to.have.all.keys(
         'author',
@@ -256,20 +254,20 @@ describe('/api/articles', () => {
           comments,
         },
       }) => {
-        expect(comments.length).to.equal(10);
+        expect(comments.length).to.equal(5);
         expect(comments[0].body).to.equal(lastCommentDesc);
         expect(comments[comments.length - 1].body).to.equal(firstCommentSubStr);
       });
   });
   it('GET returns 200 and a specified start page', () => request
-    .get('/api/articles/1/comments?limit=5&?p=3')
+    .get('/api/articles/1/comments?limit=2&?p=3')
     .expect(200)
     .then(({
       body: {
         comments,
       },
     }) => {
-      expect(comments.length).to.equal(5);
+      expect(comments.length).to.equal(2);
     }));
   it('POST returns 201 and new comment by article id', () => {
     const newComment = {
