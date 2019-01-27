@@ -7,7 +7,8 @@ exports.up = function (knex, Promise) {
     commentsTable
       .integer('user_id')
       .references('users.user_id')
-      .notNullable();
+      .notNullable()
+      .onDelete('CASCADE');
     commentsTable
       .integer('article_id')
       .references('articles.article_id')
@@ -19,7 +20,7 @@ exports.up = function (knex, Promise) {
       .notNullable();
     commentsTable
       .date('created_at')
-      .defaultTo(knex.fn.now(6))
+      .defaultTo(knex.fn.now())
       .notNullable();
     commentsTable
       .string('body', 10000)

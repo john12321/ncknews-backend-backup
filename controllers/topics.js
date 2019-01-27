@@ -32,14 +32,16 @@ exports.getArticlesByTopic = (req, res, next) => {
       'articles.created_at',
       'topic',
       'users.username as author',
+      'users.name',
+      'users.avatar_url',
+      'users.user_id'
     )
     .join('topics', 'articles.topic', 'topics.slug')
     .join('users', 'articles.user_id', 'users.user_id')
     .where('articles.topic', topic)
     .leftJoin('comments', 'articles.article_id', 'comments.article_id')
     .count('comments as comment_count')
-    .groupBy('articles.article_id')
-    .groupBy('users.username')
+    .groupBy('articles.article_id', 'users.user_id')
     .limit(limit || 10)
     .orderBy(sort_by || 'created_at', sort_ascending ? 'asc' : 'desc')
     .offset((p - 1) * limit)

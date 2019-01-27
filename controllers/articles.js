@@ -8,11 +8,10 @@ exports.getAllArticles = (req, res, next) => {
     p = 1,
   } = req.query;
   return db('articles')
-    .select('articles.article_id', 'title', 'articles.body', 'articles.votes', 'articles.created_at', 'topic', 'users.username as author')
+    .select('articles.article_id', 'title', 'articles.body', 'articles.votes', 'articles.created_at', 'topic', 'users.username as author, users.name, users.avatar_url, users.user_id')
     .join('users', 'articles.user_id', 'users.user_id')
     .leftJoin('comments', 'articles.article_id', 'comments.article_id')
-    .groupBy('articles.article_id')
-    .groupBy('users.username')
+    .groupBy('articles.article_id', 'users.user_id')
     .count('comments as comment_count')
     .limit(limit || 5)
     .orderBy(sort_by || 'created_at', sort_ascending ? 'asc' : 'desc')
@@ -36,13 +35,12 @@ exports.getArticleById = (req, res, next) => {
     article_id,
   } = req.params;
   return db('articles')
-    .select('articles.article_id', 'title', 'articles.votes', 'articles.body', 'articles.created_at', 'topic', 'users.username as author')
+    .select('articles.article_id', 'title', 'articles.votes', 'articles.body', 'articles.created_at', 'topic', 'users.username as author', 'users.name', 'users.avatar_url', 'users.user_id')
     .where('articles.article_id', article_id)
     .join('users', 'articles.user_id', 'users.user_id')
     .leftJoin('comments', 'articles.article_id', 'comments.article_id')
     .count('comments as comment_count')
-    .groupBy('articles.article_id')
-    .groupBy('users.username')
+    .groupBy('articles.article_id', 'users.user_id')
     .then((article) => {
       if (article.length === 0) {
         return next({
@@ -115,7 +113,7 @@ exports.getCommentsByArticleId = (req, res, next) => {
   } = req.query;
   return db('comments')
     .select('comments.comment_id', 'comments.votes', 'comments.created_at', 'comments.body', 'users.username as author', 'users.user_id', 'users.name', 'users.avatar_url')
-    .leftJoin('users', 'comments.user_id', 'users.user_id')
+    .join('users', 'comments.user_id', 'users.user_id')
     .where('comments.article_id', article_id)
     .limit(limit || 5)
     .orderBy(sort_by || 'created_at', sort_ascending ? 'asc' : 'desc')

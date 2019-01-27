@@ -3,7 +3,6 @@ exports.handle405s = (req, res, next) => res.status(405).send({
 });
 
 exports.handle400s = (err, req, res, next) => {
-  // console.log(err);
   const code400s = {
     42702: 'Bad request: column reference is ambiguous',
     42703: 'Bad request: column undefined',
